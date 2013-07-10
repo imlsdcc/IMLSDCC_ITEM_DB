@@ -1,0 +1,1476 @@
+<job>
+	<comment>
+  '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+  'University of Illinois/NCSA Open Source License
+  '
+  'Copyright (c) 2002 The Board of Trustees of the University of Illinois
+  'All rights reserved.
+  '
+  '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+  'DC.Title:          indexreap $Revision: 1 $ ($Workfile: IndexReap_Items.wsf $)
+  '
+  'DC.Description:    Commandline script to index harvested OAI repositories
+  '
+  'DC.Contributor:    Tom Habing, thabing@uiuc.edu, University of Illinois at Urbana-Champaign
+  'DC.Contributor:    Last Updated by $Author: Jansz $
+  '
+  'DC.Date.Modified:  $Modtime: 6/14/11 3:03p $
+  '
+  'DC:Rights:         Copyright (c) 2002 The Board of Trustees of the University of Illinois
+  '                                                                             All rights reserved.
+  '
+  '
+  '$History: IndexReap_Items.wsf $
+' 
+' *****************  Version 1  *****************
+' User: Jansz        Date: 8/10/12    Time: 11:23a
+' Created in $/IMLSDCC_Subject_Portals.root/SQL/IMLSDCCHarvest/ForIndexingItems
+' 
+' *****************  Version 1  *****************
+' User: Mctang2      Date: 1/15/10    Time: 1:31p
+' Created in $/IMLSDCCHist_Dispatching/processfiles
+' 
+' *****************  Version 3  *****************
+' User: Hzhang1      Date: 7/28/09    Time: 2:31p
+' Updated in $/IMLSDCCHist_IndexReap
+' 
+' *****************  Version 2  *****************
+' User: Hzhang1      Date: 7/07/09    Time: 10:11a
+' Updated in $/IMLSDCCHist_IndexReap
+' remove the lines to check duplicate records, in order to speed up the
+' program.
+' 
+' *****************  Version 1  *****************
+' User: Hzhang1      Date: 6/28/09    Time: 3:30p
+' Created in $/IMLSDCCHist_IndexReap
+' css version with searchXML, shortInfo, and moreInfo columns in Records
+' table; save recordID and collID in recordsToCollections and
+' recordsToMultipleCollections at the same time.
+' 
+' *****************  Version 2  *****************
+' User: Hzhang1      Date: 2/20/09    Time: 4:37p
+' Updated in $/IMLSDCCHist_IndexReap
+' 
+' *****************  Version 1  *****************
+' User: Hzhang1      Date: 2/20/09    Time: 3:21p
+' Created in $/IMLSDCCHist_IndexReap
+' 
+' *****************  Version 6  *****************
+' User: Hzhang1      Date: 9/30/08    Time: 4:12p
+' Updated in $/IMLSDCC_XML
+' Took out non-XML searchText column
+' 
+' *****************  Version 5  *****************
+' User: Wingram2     Date: 9/24/08    Time: 10:59a
+' Updated in $/IMLSDCC_XML
+' 
+' *****************  Version 4  *****************
+' User: Wingram2     Date: 9/17/08    Time: 11:25a
+' Updated in $/IMLSDCC_XML
+' Added support for generating searchText column
+' 
+' *****************  Version 3  *****************
+' User: Wingram2     Date: 9/17/08    Time: 10:30a
+' Updated in $/IMLSDCC_XML
+'
+' *****************  Version 2  *****************
+' User: Hzhang1      Date: 9/16/08    Time: 4:13p
+' Updated in $/IMLSDCC_XML
+'
+' *****************  Version 1  *****************
+' User: Hzhang1      Date: 9/02/08    Time: 4:14p
+' Created in $/IMLSDCC_XML
+' Copied over from Illinois Harvest
+'
+' *****************  Version 1  *****************
+' User: Wingram2     Date: 9/05/07    Time: 12:31p
+' Created in $/IMLSDCC_XML
+' Latest IndexReap
+'
+' *****************  Version 3  *****************
+' User: Mfoulonn     Date: 11/22/05   Time: 11:52a
+' Updated in $/CIC-OAI Metadata Harvesting Project/CICHarvest/processfiles
+'
+' *****************  Version 2  *****************
+' User: Mfoulonn     Date: 7/20/05    Time: 10:07a
+' Updated in $/CIC-OAI Metadata Harvesting Project/CICHarvest/processfiles
+'
+' *****************  Version 1  *****************
+' User: Mfoulonn     Date: 7/15/05    Time: 5:50p
+' Created in $/CIC-OAI Metadata Harvesting Project/CICHarvest/processfiles
+'
+' *****************  Version 2  *****************
+' User: Mfoulonn     Date: 3/18/05    Time: 5:52p
+' Updated in $/CIC-OAI Metadata Harvesting Project/CICHarvester/PROCESSFILES
+'
+' *****************  Version 1  *****************
+' User: Mfoulonn     Date: 3/11/05    Time: 1:54p
+' Created in $/CIC-OAI Metadata Harvesting Project/CICHarvester/PROCESSFILES
+'
+' *****************  Version 1  *****************
+' User: Mfoulonn     Date: 1/11/05    Time: 10:46a
+' Created in $/CIC-OAI Metadata Harvesting Project/CICHarvester/PROCESSFILES
+'
+' *****************  Version 3  *****************
+' User: Mfoulonn     Date: 9/02/04    Time: 10:09a
+' Updated in $/CIC-OAI Metadata Harvesting Project/CICHarvester/PROCESSFILES
+'
+' *****************  Version 2  *****************
+' User: Mfoulonn     Date: 9/01/04    Time: 3:09p
+' Updated in $/CIC-OAI Metadata Harvesting Project/CICHarvester/PROCESSFILES
+'
+' *****************  Version 1  *****************
+' User: Habing       Date: 8/27/04    Time: 9:44p
+' Created in $/CIC-OAI Metadata Harvesting Project/CICHarvester/PROCESSFILES
+'
+' *****************  Version 1  *****************
+' User: Mfoulonn     Date: 8/25/04    Time: 11:28a
+' Created in $/OAIHarvester/CIC/CICHarvester/processfiles
+'
+' *****************  Version 1  *****************
+' User: Mfoulonn     Date: 7/27/04    Time: 2:55p
+' Created in $/OAIHarvester/CIC/CICHarvester/PROCESSFILES
+'
+' *****************  Version 1  *****************
+' User: Mfoulonn     Date: 6/30/04    Time: 9:44a
+' Created in $/OAIHarvester/CIC/CICHARVESTER
+'
+' *****************  Version 26  *****************
+' User: Habing       Date: 6/24/04    Time: 1:26p
+' Updated in $/OAIHarvester/Reaper
+' USE_BIG_SQL=False
+'
+' *****************  Version 25  *****************
+' User: Habing       Date: 6/23/04    Time: 1:31p
+' Updated in $/OAIHarvester/Reaper
+' Added support for the ui:code attribute
+'
+' *****************  Version 24  *****************
+' User: Habing       Date: 5/12/04    Time: 3:22p
+' Updated in $/OAIHarvester/Reaper
+' Added support for the p_xmlns and p_property columns in the Metadata
+' table.
+'
+' *****************  Version 23  *****************
+' User: Habing       Date: 5/12/04    Time: 1:09p
+' Updated in $/OAIHarvester/Reaper
+' Added support for additional columns in the Repositories table
+'
+' *****************  Version 22  *****************
+' User: Habing       Date: 5/10/04    Time: 3:14p
+' Updated in $/OAIHarvester/Reaper
+' Support for new columns in the metadata table:
+'
+' xmlns, type, and lang
+'
+' These changes also require some new stored procedures in the database:
+'
+' RebuildDCTables2, UpdateDCTables2, and UpdateRepoDCTables2
+'
+' *****************  Version 21  *****************
+' User: Habing       Date: 5/07/04    Time: 1:01p
+' Updated in $/OAIHarvester/Reaper
+' Corrected problem w/ the datestamp in the UpdateRecords function
+'
+' *****************  Version 20  *****************
+' User: Habing       Date: 4/29/04    Time: 3:19p
+' Updated in $/OAIHarvester/Reaper
+' Various performance improvements:
+'
+' resolveExternals=false
+'
+' bundle multiple sql commands into one batch operation
+'
+' streamline processing when all the records for a repository are being
+' updated
+'
+' use new store procedure UpdateRepoDCtables to update all metadata for a
+' complete repository
+'
+' *****************  Version 19  *****************
+' User: Habing       Date: 4/27/04    Time: 4:00p
+' Updated in $/OAIHarvester/Reaper
+' Misc small performance improvements plus the addition of the rps param
+' to output the records per second processed
+'
+' *****************  Version 18  *****************
+' User: Habing       Date: 4/02/04    Time: 12:41p
+' Updated in $/OAIHarvester/Reaper
+' Will now ignore duplicate setSpecs in the oai:header
+'
+' *****************  Version 16  *****************
+' User: Habing       Date: 3/30/04    Time: 1:48p
+' Updated in $/OAIHarvester/Reaper
+' added the /ns param to skip the creation of special metadata
+'
+' added code to better check for text overflows in the database
+'
+' added code to better handle missing datestamp
+'
+' deferring the updatedctables until the end
+'
+' *****************  Version 15  *****************
+' User: Habing       Date: 3/29/04    Time: 10:18p
+' Updated in $/OAIHarvester/Reaper
+' Added a warning count to the output
+'
+' *****************  Version 14  *****************
+' User: Habing       Date: 3/11/04    Time: 4:07p
+' Updated in $/OAIHarvester/Reaper
+' Better docs for the /test param
+'
+' *****************  Version 12  *****************
+' User: Habing       Date: 12/23/03   Time: 11:21a
+' Updated in $/OAIHarvester/Reaper
+' Added code to update the codeName column of repository table
+'
+' *****************  Version 11  *****************
+' User: Habing       Date: 12/04/03   Time: 4:12p
+' Updated in $/OAIHarvester/Reaper
+' Got rid of the code to automatically start any full-text cataloging
+' tasks; these are all now deferrred to the scheduling system of the
+' database itself.
+'
+' Also, added better error handling to the MyEcho function
+'
+' *****************  Version 10  *****************
+' User: Habing       Date: 9/23/03    Time: 11:45a
+' Updated in $/Harvester/Reaper
+' Added a version attribute to the indexreap tag
+'
+' *****************  Version 9  *****************
+' User: Habing       Date: 9/23/03    Time: 11:03a
+' Updated in $/Harvester/Reaper
+' 1) Skip XML files whose root node is not in the OAI namespace
+'
+' 2) Correctly support input files containing multiple counts for
+' different sets
+'
+'
+' *****************  Version 8  *****************
+' User: Habing       Date: 8/13/03    Time: 4:00p
+' Updated in $/Harvester/Reaper
+' Retry the UpdateDCTables SQL command multiple times before giving up
+'
+' *****************  Version 7  *****************
+' User: Habing       Date: 8/05/03    Time: 3:25p
+' Updated in $/Harvester/Reaper
+' Added /srv:value and /db:value to specify the server and database names
+' for the database
+'
+' *****************  Version 6  *****************
+' User: Habing       Date: 8/04/03    Time: 1:12p
+' Updated in $/Harvester/Reaper
+' Added /all switch to force a complete reindex recgardless of the file
+' datestamps
+'
+' *****************  Version 5  *****************
+' User: Habing       Date: 7/22/03    Time: 12:53p
+' Updated in $/Harvester/Reaper
+' Added a /test command line param to index to a test database
+' EngrOAITest
+'
+' *****************  Version 4  *****************
+' User: Habing       Date: 6/10/03    Time: 11:02a
+' Updated in $/Harvester/Reaper
+' Added support for nested subdirectories
+'
+' *****************  Version 3  *****************
+' User: Habing       Date: 4/23/03    Time: 4:29p
+' Updated in $/Harvester/Reaper
+' Increased the commandtimeout to better support the size and complexity
+' of our database
+'
+' *****************  Version 2  *****************
+' User: Habing       Date: 3/03/03    Time: 9:57a
+' Updated in $/Harvester/Reaper
+' First time added to its own project
+  '
+  ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+	</comment>
+	<runtime>
+		<description>
+IndexReap: OAI Command Line Indexing Tool, $Revision: 1 $
+		</description>
+		<unnamed helpstring="The directory containing the metadata files to index, defaults to&#10;&#9;  either the current directory or the directory in the config file" name="baseDIR" many="false"/>
+		<unnamed helpstring="The base URL of the OAI repository from which the records were harvested" name="baseURL" many="false"/>
+		<named helpstring="The name of the database server" name="srv" required="true" type="string"/>
+		<named helpstring="The name of the database" name="db" required="true" type="string"/>
+		<named helpstring="Name of file in baseDir from which to read config data, defaults to&#10;&#9;  Config.xml, or if baseDIR is missing this will be treated as full path,&#10;&#9;  and the baseDIR will be read from the config file." name="in" required="false" type="string"/>
+		<named helpstring="Name of file in baseDir to which to save the output, defaults to stdout" name="out" required="false" type="string"/>
+		<named helpstring="Name of metadata file in baseDir at which to start processing" name="st" required="false" type="string"/>
+	</runtime>
+	<script language="VBScript">
+        Option Explicit
+        Dim fs, shl, baseDIR, args_baseURL, repoName, inFile, inXML, baseDirFromIn, outFile, conn, util, okcnt, badcnt, skcnt, delcnt, wrncnt, badcid, nocid, setSpec, startFile, minDTS, total, srv, db
+        Dim textLimit, idTextLimit, bigSQL, myecho_ts, allNewRecs, baseURLFromArgs, isEmptyDB, ignoreDIR, noMinorUpdates
+
+        Const LIST_SKIPPED_FILES = True
+
+        Const ERR_INXML_PARSE_ERROR = 206
+        Const ERR_NO_SRV = 207
+        Const ERR_NO_DB = 208
+        Const ERR_ARGS = 209
+        Const ERR_MISMATCHED_BASEURLS = 210
+
+        Const ERRCNT_LIMIT = 6
+        Const ERRCNT_SLEEP = 10000 '10 seconds
+
+        Const USE_BIG_SQL = False
+        Const TEXT_COMPARE = 1
+
+        main
+
+
+
+Sub main()
+        Set fs = WScript.CreateObject("Scripting.FileSystemObject")
+        Set shl = WScript.CreateObject("WScript.Shell")
+        Set conn = WScript.CreateObject("ADODB.Connection")
+        Set util = WScript.CreateObject("OAIHarvesterObj.UtilitiesObj")
+        
+        ' Initialize
+	    allNewRecs = True  ' changed by hz to avoid expensive queries, assuming all the records are new.
+        baseURLFromArgs = True
+        isEmptyDB = False
+        ignoreDIR = False
+        noMinorUpdates = False
+        okcnt = 0
+        badcnt = 0
+        skcnt = 0
+        delcnt = 0
+        wrncnt = 0
+        badcid = 0
+        nocid = 0
+        
+        WScript.stderr.writeline vbCrLf & "Start time: " & Now
+        
+        ParseArguments
+        ParseInXML
+        
+        Set myecho_ts = Nothing
+        
+        If Len(outFile) > 0 Then
+                If fs.FileExists(outFile) Then
+                        fs.CopyFile outFile, outFile & ".bak"
+                        fs.DeleteFile outFile
+                End If
+                On Error Resume Next
+                Set myecho_ts = fs.OpenTextFile(outFile, 8, True, -1)
+                errnum = Err.Number: errdes = Err.Description
+                If errnum <> 0 Then WScript.stderr.writeline "Error: " & errnum & " - " & errdes
+                On Error GoTo 0
+        End If
+        
+        MyEcho "<indexreap version='$Revision: 1 $'>"
+        MyEcho " <startTime>" & util.DateToISO8601(util.NowUTC) & "</startTime>"
+        MyEcho " <baseDIR>" & baseDIR & "</baseDIR>"
+
+        If baseURLFromArgs = True Then MyEcho " <baseURL>" & args_baseURL & "</baseURL>"
+        If Len(inFile) > 0 Then MyEcho " <inFile>" & inFile & "</inFile>"
+
+        If total <> 0 Or Len(inFile) = 0 Or allNewRecs = True Then
+                conn.open "Driver={SQL Server};Server=" & srv & ";Database=" & db & ";Trusted_Connection=yes"
+                conn.commandtimeout = 6000 ' 100 minutes
+                        
+                idTextLimit = GetFieldWidth("records", "identifier")
+
+                MyEcho " <srv>" & srv & "</srv>"
+                MyEcho " <db>" & db & "</db>"
+
+                MyEcho " <ProcessRecords start='" & Now & "'>"
+                ProcessRecords
+                MyEcho "  <Done finished='" & Now & "'/>"
+                MyEcho " </ProcessRecords>"
+                
+                conn.Close
+        Else
+                MyEcho " <Message>No new records to index.</Message>"
+        End If
+
+        MyEcho " <RecordCount>" & Chr(10) & "  <OK>" & okcnt & "</OK><Invalid>" & badcnt & "</Invalid><Skipped>" & skcnt & "</Skipped><Deleted>" & delcnt & "</Deleted><Total>" & skcnt + okcnt + badcnt + delcnt & "</Total>" & Chr(10) & " </RecordCount>"
+        MyEcho " <NoCollectionIDs>" & nocid & "</NoCollectionIDs>"
+        MyEcho " <BadCollectionIDs>" & badcid & "</BadCollectionIDs>"
+        MyEcho " <Warnings>" & wrncnt & "</Warnings>"
+        MyEcho " <finishTime>" & util.DateToISO8601(util.NowUTC) & "</finishTime>"
+        MyEcho "</indexreap>"
+
+        If Not myecho_ts Is Nothing Then
+                myecho_ts.Close
+        End If
+        
+        WScript.stderr.writeline vbCrLf & "End time: " & Now
+
+        Set util = Nothing
+        Set fs = Nothing
+        Set shl = Nothing
+        Set conn = Nothing
+        Set myecho_ts = Nothing
+End Sub
+
+Sub ProcessRecords()
+                        Dim fldr, recXML
+
+                        Set recXML = WScript.CreateObject("MSXML2.DOMDocument.4.0")
+                        recXML.async = False
+                        recXML.validateOnParse = False
+                        recXML.resolveExternals = False
+                        recXML.setProperty "NewParser", True
+                        recXML.setProperty "SelectionLanguage", "XPath"
+                        
+                        Set fldr = fs.GetFolder(baseDIR)
+						
+                        ProcessFolder fldr, recXML
+
+                        Set recXML = Nothing
+End Sub
+
+Sub ProcessFolder(fldr, recXML)
+        Dim fls, fl, filePATH, recID, repoID, nm, sql, fileDTS, fileCreatedDTS, sfldrs, sfldr
+        Dim errnum, errdes, errcnt, strt, dd
+        ' *** added to exclude non-history subsets of harvested repositories
+        Dim skipHistFlg, strCollTitle, cntExcludeColls, cntColls
+        Dim baseURL, prov_baseURL
+        Dim ndeCollTitle
+        Dim excludeTitles(11)
+        
+		excludeTitles(0) = "Western Soundscape Archive"   'added by hz for new added content.lib.utah data @02/20/2009
+        excludeTitles(1) = "Theresa Hak Kyung Cha"
+        excludeTitles(2) = "UCLA Fowler Museum"
+        excludeTitles(3) = "Chinese Paintings"
+        excludeTitles(4) = "Richard Vogler Cruikshank"
+        excludeTitles(5) = "Images and Ideas"
+        excludeTitles(6) = "Indian Miniature Paintings"
+        excludeTitles(7) = "Japanese Prints"
+        excludeTitles(8) = "Keystone-Mast Collection"
+        excludeTitles(9) = "Old Master Prints"
+        excludeTitles(10) = "Living Museum Online"
+		
+        cntExcludeColls = 10
+        
+        Set fls = fldr.Files
+        strt = Now
+        
+        'facet table dictionary mapping
+        Dim lookupFacetDict, facetDictRs
+        Set lookupFacetDict = WScript.CreateObject("Scripting.Dictionary")
+        sql = "SELECT facetID, facetValue FROM Facets"
+        set facetDictRs = conn.Execute(sql)
+        While Not facetDictRs.EOF
+            'wscript.echo facetDictRs("facetValue").Value & "    " & facetDictRs("facetID")
+            lookupFacetDict.Add facetDictRs("facetValue").Value, facetDictRs("facetID").Value
+            facetDictRs.MoveNext
+        Wend
+        
+        'subjects table dictionary mapping
+        Dim lookupSubDict, subDictRs, subText
+        Set lookupSubDict = WScript.CreateObject("Scripting.Dictionary")
+        sql = "SELECT subjectID, LOWER(subjectText) as 'subjectText' FROM Subjects"
+        set subDictRs = conn.Execute(sql)
+        While Not subDictRs.EOF
+            subText = subDictRs("subjectText").Value
+            if not lookupSubDict.Exists(subText) then
+			    lookupSubDict.Add subText, subDictRs("subjectID").Value
+			end if
+			subDictRs.MoveNext
+        Wend
+        
+        'types table dictionary mapping
+        Dim lookupTypeDict, typeDictRs
+        Set lookupTypeDict = WScript.CreateObject("Scripting.Dictionary")
+        sql = "SELECT typeID, LOWER(typeText) as 'typeText' FROM Types"
+        set typeDictRs = conn.Execute(sql)
+        While Not typeDictRs.EOF
+            lookupTypeDict.Add typeDictRs("typeText").Value, typeDictRs("typeID").Value
+            typeDictRs.MoveNext
+        Wend
+        
+        facetDictRs.Close
+        subDictRs.Close
+        typeDictRs.Close
+        Set facetDictRs = Nothing
+        Set subDictRs = Nothing
+        Set typeDictRs = Nothing
+        
+        For Each fl In fls
+                nm = fl.Name               
+                filePATH = fl.Path
+                fileDTS = fl.DateLastModified
+                fileCreatedDTS = fl.DateCreated
+                If LCase(fs.GetExtensionName(filePATH)) = "xml" And LCase(nm) <> LCase(Right(inFile, Len(nm))) And StrComp(nm, startFile, TEXT_COMPARE) >= 0 Then
+                        If fileDTS >= minDTS Or allNewRecs = True Then
+                                'MyEcho "  <file id='R" & skcnt + okcnt + badcnt + delcnt & "' path='" & filePATH & "'>"
+                                MyEcho "  <file name='" & nm & "'>"
+                                recXML.Load filePATH
+                
+                                If recXML.parseError.errorCode <> 0 Then
+                                        MyEcho "   <xmlerror code='" & recXML.parseError.errorCode & "' line='" & recXML.parseError.Line & "'>" & recXML.parseError.reason & "  </xmlerror>"
+                                        badcnt = badcnt + 1
+                                ElseIf InStr(1, recXML.documentElement.namespaceURI, "OAI", 1) = 0 Then
+                                        MyEcho "   <skipped namespaceURI='" & recXML.documentElement.namespaceURI & "'/>"
+                                Else
+                                        recXML.setProperty "SelectionNamespaces", "xmlns:oai='" & recXML.documentElement.namespaceURI & "' xmlns:dc='http://purl.org/dc/elements/1.1/' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:ui='http://www.library.uiuc.edu/uiLib' xmlns:prov='http://www.openarchives.org/OAI/2.0/provenance' xmlns:mods='http://www.loc.gov/mods/v3' xmlns:xlink='http://www.w3.org/TR/xlink' xmlns:oai_dc='http://www.openarchives.org/OAI/2.0/oai_dc/' xmlns:dct='http://purl.org/dc/terms/'"
+                	
+    		                            Set ndeCollTitle = recXML.selectNodes("oai:record/oai:metadata/ui:dc/dct:isPartOf[@ui:usage='admin']")
+    		                            If ndeCollTitle.length > 0 Then
+    		                            	strCollTitle = trim(ndeCollTitle(0).text)
+    		                            Else
+    		                            	 ' (added an easy solution for it. HZ) TODO: *** these records should not be put in the database, MyEcho a diagnostic and then skip these records
+    		                            	 ' also implement a fix in main IMLS DCC indexreap6
+    		                            	strCollTitle = "NO COLL TITLE"
+    		                            	'WScript.StdErr.WriteLine VbCrLf & "NO COLL TITLE: " & filePATH & "/" & nm
+    		                            End If
+    		                                		                            
+    		                            skipHistFlg = False
+    		                            
+    		                            For cntColls = 0 To cntExcludeColls
+    		                            	If InStr(strCollTitle, excludeTitles(cntColls))>0 Then
+    		                            		'WScript.StdErr.WriteLine VbCrLf & "excluded " & strCollTitle
+    		                            		skipHistFlg = True
+    		                            		Exit For
+    		                            	End if    		                            
+    		                            next
+    		                           
+                						If (Not skipHistFlg) And instr(strCollTitle, "No COLL TITLE") < 1 Then                							
+                                            prov_baseURL = GetElementValue(recXML, "//prov:originDescription/prov:baseURL")
+
+                                            If baseURLFromArgs = True Then 
+                                                baseURL = args_baseURL
+                                            Else
+                                                baseURL = prov_baseURL
+                                            End If
+                                            repoID = ProcessRepository(recXML, baseURL)
+
+                							'WScript.StdErr.writeline nm
+	                                        recID = UpdateRecords(prov_baseURL, repoID, filePATH, recXML, fileCreatedDTS, 0, lookupFacetDict, lookupSubDict, lookupTypeDict)
+    	                                    MyEcho "   <Record id='" & recID & "' />"
+    	                                End If
+    	                                
+    	                                Set ndeCollTitle = Nothing
+                                End If
+                                MyEcho "  </file>"
+                        Else
+                                skcnt = skcnt + 1
+                                If LIST_SKIPPED_FILES Then MyEcho "  <file id='R" & skcnt + okcnt + badcnt + delcnt & "' path='" & filePATH & "'><skipped fileDate='" & util.DateToISO8601(fileDTS) & "'/></file>"
+                        End If
+                ElseIf LCase(fs.GetExtensionName(filePATH)) = "del" And LCase(nm) <> LCase(Right(inFile, Len(nm))) And StrComp(nm, startFile, TEXT_COMPARE) >= 0 Then
+                        MyEcho "  <file id='R" & skcnt + okcnt + badcnt + delcnt & "' path='" & filePATH & "'>"
+                        recXML.Load filePATH
+                
+                        If recXML.parseError.errorCode <> 0 Then
+                                MyEcho "   <xmlerror code='" & recXML.parseError.errorCode & "' line='" & recXML.parseError.Line & "'>" & recXML.parseError.reason & "  </xmlerror>"
+                                badcnt = badcnt + 1
+                        ElseIf allNewRecs = True And isEmptyDB = False Then
+                                MyEcho "   <deleted/>"
+                                sql = "DELETE FROM Records WHERE repoID=" & repoID & " AND filePath='" & filePATH & "'"
+                                conn.Execute sql
+                                fl.Delete
+                                delcnt = delcnt + 1
+                        End If
+                        MyEcho "  </file>"
+                Else
+                        skcnt = skcnt + 1
+                        If LIST_SKIPPED_FILES Then MyEcho "  <file id='R" & skcnt + okcnt + badcnt + delcnt & "' path='" & filePATH & "'><skipped/></file>"
+                End If
+        Next
+        
+        Set sfldrs = fldr.subfolders
+        For Each sfldr In sfldrs
+                ProcessFolder sfldr, recXML
+        Next
+
+        dd = DateDiff("s", strt, Now)
+        If dd > 0 Then MyEcho "  <?records_per_second " & FormatNumber(okcnt / dd, 1, True) & " ?>"
+End Sub
+
+Function FixText(s)
+        FixText = Replace(s, "'", "''")
+End Function
+
+Function GetFieldWidth(tbl, col)
+        Dim cat, ret
+        
+        Set cat = WScript.CreateObject("ADOX.Catalog")
+        Set cat.ActiveConnection = conn
+        
+        ret = cat.Tables(tbl).Columns(col).definedsize
+        
+        Set cat = Nothing
+        
+        GetFieldWidth = ret
+End Function
+
+Function UpdateRecords(prov_baseURL, repoID, filePATH, recXML, harvestDate, nxt, lookupFacetDict, lookupSubDict, lookupTypeDict)
+        Dim rs, id, sql, identifier, datestamp, status, recExists, prov_repositoryID, prov_datestamp
+        Dim ToOpen, xslSearchBlobDoc, xslSearchBlobTemplate, xslMoreInfoDoc, xslMoreInfoTemplate, xslShortDoc, xslShortTemplate
+        Dim xmlSearchBlobPre, xslSearchBlobProc, xmlSearchBlobPost, searchXML
+        Dim xslSearchTextDoc, xslSearchTextTemplate, xslSearchTextProc, xslSearchTextPost, searchText
+        Dim xmlMoreInfoPre, xslMoreInfoProc, xmlMoreInfoPost, longXHTML
+        Dim xmlShortPre, xslShortProc, xmlShortPost, shortXHTML
+        Dim errnum, errdes
+		dim theCollTitle, theCollID, collTitleQuery
+		dim cidList, cidNum, cid
+
+        identifier = GetElementValue(recXML, "//oai:identifier")
+        datestamp = GetElementValue(recXML, "//oai:datestamp")
+        prov_repositoryID = GetElementValue(recXML, "//prov:originDescription/prov:repositoryID")
+        prov_datestamp = GetElementValue(recXML, "//prov:originDescription/@harvestDate")
+        status = GetElementValue(recXML, "//@status")
+       
+		set cidList = recXML.selectNodes("//ui:dc/dct:isPartOf[@ui:usage='admin']/@cid")
+		if cidList.length < 1 then
+		   'wscript.echo "ERROR: there is no cid in xml record of " & identifier & " in repoID " & repoID
+		   'wscript.quit
+           MyEcho "   <NoCid='An empty cidList' />"
+           nocid = nocid + 1
+           Exit Function
+		end if
+		
+        '*******************************************************************
+        ' Begin stylesheet transformations for creating xml and xhtml blobs
+        '*******************************************************************
+        
+        '************************
+        ' create search blob xml
+        '************************
+        
+        ' load xsl sheet for search blob
+        Set xslSearchBlobDoc = WScript.CreateObject("MSXML2.FreeThreadedDOMDocument.4.0")
+        xslSearchBlobDoc.async = False
+        xslSearchBlobDoc.resolveExternals = False
+        xslSearchBlobDoc.validateOnParse = False
+        ToOpen = "D:\harvests\IMLSDCCHarvest\ForIndexing\make_search_xml.xsl"
+        xslSearchBlobDoc.Load ToOpen
+                
+        ' create the template object for search blob
+        Set xslSearchBlobTemplate = WScript.CreateObject("MSXML2.XSLTemplate.4.0")
+        xslSearchBlobTemplate.Stylesheet = xslSearchBlobDoc
+        
+        Set xslSearchBlobProc = xslSearchBlobTemplate.CreateProcessor
+        Set xmlSearchBlobPost = WScript.CreateObject("MSXML2.DOMDocument.4.0")
+        xmlSearchBlobPost.async = False
+        xmlSearchBlobPost.validateOnParse = False
+        xmlSearchBlobPost.resolveExternals = False
+        
+        xslSearchBlobProc.input = recXML
+        xslSearchBlobProc.output = xmlSearchBlobPost
+        If (xslSearchBlobProc.Transform = False) Then
+                MsgBox "XSLT PROCESSOR: failed"
+                WScript.Quit
+        End If
+        
+        searchXML = xmlSearchBlobPost.xml
+        searchXML = Replace(searchXML, "'", "''")
+		searchXML = Replace(searchXML, "<br/>", " ")
+		
+        '************************
+        ' create more info xhtml
+        '************************
+        
+        ' load xsl sheet for more info xhtml
+        Set xslMoreInfoDoc = WScript.CreateObject("MSXML2.FreeThreadedDOMDocument.4.0")
+        xslMoreInfoDoc.async = False
+        xslMoreInfoDoc.resolveExternals = False
+        xslMoreInfoDoc.validateOnParse = False
+        ToOpen = "D:\harvests\IMLSDCCHarvest\ForIndexing\dev_make_more_info_xml.xsl"
+        xslMoreInfoDoc.Load ToOpen
+                
+        ' create the template object for more info xhtml
+        Set xslMoreInfoTemplate = WScript.CreateObject("MSXML2.XSLTemplate.4.0")
+        xslMoreInfoTemplate.Stylesheet = xslMoreInfoDoc
+        
+        Set xslMoreInfoProc = xslMoreInfoTemplate.CreateProcessor
+        Set xmlMoreInfoPost = WScript.CreateObject("MSXML2.DOMDocument.4.0")
+        xmlMoreInfoPost.async = False
+        xmlMoreInfoPost.validateOnParse = False
+        xmlMoreInfoPost.resolveExternals = False
+        
+        xslMoreInfoProc.input = recXML
+        xslMoreInfoProc.output = xmlMoreInfoPost
+        
+        If (xslMoreInfoProc.Transform = False) Then
+                MsgBox "XSLT PROCESSOR: failed"
+                WScript.Quit
+        End If
+        
+        longXHTML = xmlMoreInfoPost.xml
+        longXHTML = Replace(longXHTML, "'", "''")
+		longXHTML = Replace(longXHTML, "<br/>", " ")
+		
+        '****************************
+        ' create short display xhtml
+        '****************************
+        
+        ' load xsl sheet for short xhtml
+        Set xslShortDoc = WScript.CreateObject("MSXML2.FreeThreadedDOMDocument.4.0")
+        xslShortDoc.async = False
+        xslShortDoc.resolveExternals = False
+        xslShortDoc.validateOnParse = False
+        ToOpen = "D:\harvests\IMLSDCCHarvest\ForIndexing\dev_make_short_display_xml.xsl"
+        xslShortDoc.Load ToOpen
+                
+        ' create the template object for short xhtml
+        Set xslShortTemplate = WScript.CreateObject("MSXML2.XSLTemplate.4.0")
+        xslShortTemplate.Stylesheet = xslShortDoc
+        
+        Set xslShortProc = xslShortTemplate.CreateProcessor
+        Set xmlShortPost = WScript.CreateObject("MSXML2.DOMDocument.4.0")
+        xmlShortPost.async = False
+        xmlShortPost.validateOnParse = False
+        xmlShortPost.resolveExternals = False
+        
+        xslShortProc.input = recXML
+        xslShortProc.output = xmlShortPost
+		'xslShortProc.addParameter "collectionID", theCollID
+        
+        If (xslShortProc.Transform = False) Then
+                MsgBox "XSLT PROCESSOR: failed"
+                WScript.Quit
+        End If
+        
+        shortXHTML = xmlShortPost.xml
+        shortXHTML = Replace(shortXHTML, "'", "''")
+		shortXHTML = Replace(shortXHTML, "<br/>", " ")
+		
+		'****************************
+        ' create format to type xml
+        '****************************
+        
+        ' load xsl sheet
+        Dim xslTypeDoc, xslTypeTemplate, xslTypeProc, xmlTypePost
+        
+        Set xslTypeDoc = WScript.CreateObject("MSXML2.FreeThreadedDOMDocument.4.0")
+        xslTypeDoc.async = False
+        xslTypeDoc.resolveExternals = False
+        xslTypeDoc.validateOnParse = False
+        ToOpen = "D:\harvests\IMLSDCCHarvest\ForIndexing\make_format_to_type_xml.xsl"
+        xslTypeDoc.Load ToOpen
+                
+        ' create the template object for short xhtml
+        Set xslTypeTemplate = WScript.CreateObject("MSXML2.XSLTemplate.4.0")
+        xslTypeTemplate.Stylesheet = xslTypeDoc
+        
+        Set xslTypeProc = xslTypeTemplate.CreateProcessor
+        Set xmlTypePost = WScript.CreateObject("MSXML2.DOMDocument.4.0")
+        xmlTypePost.async = False
+        xmlTypePost.validateOnParse = False
+        xmlTypePost.resolveExternals = False
+        xmlTypePost.setProperty "NewParser", True
+        xmlTypePost.setProperty "SelectionLanguage", "XPath"
+        
+        xmlTypePost.setProperty "SelectionNamespaces", "xmlns:oai='" & recXML.documentElement.namespaceURI & "' xmlns:dc='http://purl.org/dc/elements/1.1/' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:ui='http://www.library.uiuc.edu/uiLib' xmlns:prov='http://www.openarchives.org/OAI/2.0/provenance' xmlns:mods='http://www.loc.gov/mods/v3' xmlns:xlink='http://www.w3.org/TR/xlink' xmlns:oai_dc='http://www.openarchives.org/OAI/2.0/oai_dc/' xmlns:dct='http://purl.org/dc/terms/'"
+        
+        xslTypeProc.input = recXML
+        xslTypeProc.output = xmlTypePost
+		'xslShortProc.addParameter "collectionID", theCollID
+        
+        If (xslTypeProc.Transform = False) Then
+                MsgBox "XSLT PROCESSOR: failed"
+                WScript.Quit
+        End If
+        
+        '*******************************************************************
+        ' End stylesheet transformations for creating xml and xhtml blobs
+        '*******************************************************************
+        
+        If Len(identifier) > idTextLimit Then
+                identifier = Right(identifier, idTextLimit)
+                If nxt = 0 Then
+                        MyEcho "  <warning>The identifier exceeded the " & idTextLimit & " character limit, and was truncated</warning>"
+                        wrncnt = wrncnt + 1
+                End If
+        End If
+
+        If Len(datestamp) > 0 Then
+                On Error Resume Next
+                datestamp = util.ISO8601ToDate(datestamp)
+                errnum = Err.Number
+                errdes = Err.Description
+                On Error GoTo 0
+                If errnum <> 0 Then
+                        datestamp = Now
+                        MyEcho "  <warning>'" & datestamp & "' is not a valid date format; using the current date</warning>"
+                End If
+        Else
+                If nxt = 0 Then
+                        MyEcho "  <warning>The datestamp was empty; using the current date</warning>"
+                        wrncnt = wrncnt + 1
+                End If
+                datestamp = Now
+        End If
+        
+		'there will be no case when allNewRecs=false, changed by hz in the parseArguments function.
+        If allNewRecs = False Or nxt = 1 Then
+                'we need to find if the record already exists or Not
+                sql = "SELECT recordID FROM Records WHERE repoID=" & repoID & " AND identifier='" & identifier & "'"
+        
+                Set rs = conn.Execute(sql)
+        
+                recExists = Not rs.EOF
+        Else
+                Set rs = Nothing
+            	recExists = False
+        End If
+        
+        'parse for title, creator, subject1, subject2
+        Dim titleList, creatorList, subjectList, typeList, title, creator, subjectNode, typeNode
+        Dim titleXML, creatorXML, subjectXML
+        Dim titleNoPunct, subNoPunct, typeNoPunct
+        Dim titleText, tempTitleText, subjectReplace, subjectSplit, subject, encSubject, encSubject2
+        
+        Dim uniqSubDict, uniqTypeDict
+        Dim noPunctSubDict, noPunctTypeDict
+        Set uniqSubDict = WScript.CreateObject("Scripting.Dictionary")
+        Set uniqTypeDict = WScript.CreateObject("Scripting.Dictionary")
+        Set noPunctSubDict = WScript.CreateObject("Scripting.Dictionary")
+        Set noPunctTypeDict = WScript.CreateObject("Scripting.Dictionary")
+        
+        'looking for Title(s)
+        Set titleList = recXML.selectNodes("oai:record/oai:metadata/oai_dc:dc/dc:title")
+        if titleList.length > 0 then
+            titleXML = "<record>"
+            titleText = ""
+            for each title in titleList
+                tempTitleText = Trim(DecEncSpecChar(title.Text))
+                titleXML = titleXML & "<title>" & tempTitleText & "</title>"
+                if titleText = "" then
+                    titleText = tempTitleText
+                else
+                    titleText = titleText & ", " & tempTitleText
+                end if
+            next
+            titleXML = titleXML & "</record>"
+            titleXML = Replace(titleXML, "'", "''")
+            titleXML = Replace(titleXML, "<br>", " ")
+            titleXML = Replace(titleXML, "<br/>", " ")
+            titleXML = Replace(titleXML, "<br />", " ")
+            titleNoPunct = Trim(RemovePunctuations(titleText))
+            titleText = Replace(titleText, "'", "''")
+        end if
+        
+        'looking for Creator(s)
+        Set creatorList = recXML.selectNodes("oai:record/oai:metadata/oai_dc:dc/dc:creator")
+        if creatorList.length > 0 then
+            creatorXML = "<record>"
+            for each creator in creatorList
+                creatorXML = creatorXML & "<creator>" & Trim(DecEncSpecChar(creator.Text)) & "</creator>"
+            next
+            creatorXML = creatorXML & "</record>"
+            creatorXML = Replace(creatorXML, "'", "''")
+            creatorXML = Replace(creatorXML, "<br>", " ")
+            creatorXML = Replace(creatorXML, "<br/>", " ")
+            creatorXML = Replace(creatorXML, "<br />", " ")
+        end if
+        
+         'looking for Subject(s)
+        Set subjectList = recXML.selectNodes("oai:record/oai:metadata/oai_dc:dc/dc:subject")
+        if subjectList.length > 0 then
+            subjectXML = "<record>"
+            for each subjectNode in subjectList
+                subjectReplace = subjectNode.Text
+                subjectReplace = Replace(subjectReplace, ";", "<br/>")
+                subjectReplace = Replace(subjectReplace, "<br>", "<br/>")
+                subjectReplace = Replace(subjectReplace, "<br />", "<br/>")
+                subjectSplit = Split(subjectReplace, "<br/>")
+                for each subject in subjectSplit
+                    if Trim(subject) <> "" then
+                        encSubject = DecodeSpecChar(subject)                    'decodes all spec characters, ie. &amp; => &
+                        subNoPunct = Trim(RemovePunctuations(encSubject))       'removes all non-alphanumerics + non-spaces and trims
+                        encSubject = Trim(EncodeSpecChar(encSubject))           're-encodes the subject and trims
+                        encSubject2 = Replace(encSubject, "'", "''")            'encodes apostrophes for database injest while preserving original case
+                        encSubject = LCase(encSubject)                          'makes subject lowercase so that when it is made into a key, duplicates can be checked ignoring case.
+                        if encSubject <> "" and not uniqSubDict.Exists(encSubject) and ValidSubject(encSubject) = true then         'checks for empty subjects and duplicate subjects in the same record
+                            subjectXML = subjectXML & "<subject>" & encSubject2 & "</subject>"
+                            uniqSubDict.Add encSubject, encSubject2
+                            noPunctSubDict.Add encSubject, subNoPunct
+                        end if
+                    end if
+                next
+            next
+            subjectXML = subjectXML & "</record>"
+            subjectXML = Replace(subjectXML, "'", "''")
+        end if
+        
+        Dim encTypeText, tempTypeText
+        
+        Set typeList = xmlTypePost.selectNodes("oai:record/oai:metadata/oai_dc:dc/dc:type")
+        if typeList.length > 0 then
+            for each typeNode in typeList
+                tempTypeText = DecodeSpecChar(typeNode.Text)
+                typeNoPunct = Trim(RemovePunctuations(tempTypeText))
+                tempTypeText = Trim(EncodeSpecChar(tempTypeText))
+                encTypeText = Replace(tempTypeText, "'", "''")
+                tempTypeText = LCase(tempTypeText)
+                if typeNode.Text <> "" and not uniqTypeDict.Exists(tempTypeText) then
+                    uniqTypeDict.Add tempTypeText, encTypeText
+                    noPunctTypeDict.Add tempTypeText, typeNoPunct
+                end if
+            next
+        end if
+        
+		dim queryCount
+		queryCount = 1
+        If recExists = False Then
+            'we need to create a new record
+            Dim isBadCid : isBadCid = False
+			for each cid in cidList
+                'dbg
+                'WScript.echo cid.text
+                If ( StrComp(cid.Text, "", TEXT_COMPARE) = 0 Or StrComp(cid.Text, "0", TEXT_COMPARE) = 0 ) Then
+                    MyEcho "   <BadCid='" & cid.text & "' />"
+                    badcid = badcid + 1
+                    if (queryCount = 1) then isBadCid = True
+                Else
+                    if(queryCount = 1) then
+                        sql = "INSERT INTO Records (repoID, cid, identifier,datestamp,status,filePath,harvestDate,prov_baseURL, prov_datestamp,prov_repositoryID,searchXML,shortXML,longXML,title,creator,subject,titleText,titleNoPunct) VALUES ("
+                        sql = sql & repoID & "," & cid.Text & ",'" & FixText(identifier) & "','" & datestamp & "','" & status & "','" & FixText(filePATH) & "','" & harvestDate & "','" & prov_baseURL & "','" & prov_datestamp & "','" & prov_repositoryID & "','" & searchXML & "','" & shortXHTML & "','" & longXHTML & "','" & titleXML & "','" & creatorXML & "','" & subjectXML & "','" & titleText & "','" & titleNoPunct & "')"
+                        'dbg
+                        'WScript.echo sql
+                        conn.Execute sql
+		    		  
+		    		  sql = "SELECT @@IDENTITY"
+		    		  Set rs = conn.Execute(sql)
+                      If rs.EOF = False Then
+                            id = rs(0)
+                            rs.Close
+    				  End If
+    				
+    				  sql = "INSERT INTO RecordsToCollections(collID, recordID, oaiIdentifier, code) VALUES ("
+    				  sql = sql & cid.Text & "," & id & ",'" & FixText(identifier) & "','" & prov_repositoryID & "')"
+    				  conn.Execute sql
+    				end if
+				
+    				sql = "INSERT INTO RecordsToMultipleCollections(collID, recordID, oaiIdentifier, code, title) VALUES ("
+    				sql = sql & cid.Text & "," & id & ",'" & FixText(identifier) & "','" & prov_repositoryID & "','')"
+    				conn.Execute sql
+				
+                    okcnt = okcnt + 1
+	    			queryCount = queryCount + 1
+                End If
+            next
+			
+			'subject code, added by MT
+			'inserting subjects
+			Dim subjectKeyList, subjectKey, tempSubjectText, subjectID
+            if isBadCid = False then
+			    if subjectList.length > 0 then
+			        subjectKeyList = uniqSubDict.Keys
+                    for each subjectKey in subjectKeyList
+                        'WScript.echo "subject='" & uniqSubDict.Item(subjectKey) & "'"
+                    
+                        if lookupSubDict.Exists(subjectKey) then
+                            subjectID = lookupSubDict.Item(subjectKey)
+                        else
+                            sql = "INSERT INTO Subjects (subjectText, subjectNoPunct) VALUES ('" & uniqSubDict.Item(subjectKey) & "','" & noPunctSubDict.Item(subjectKey) & "')"
+                            conn.Execute sql
+                        
+                            sql = "SELECT @@IDENTITY"
+			                Set rs = conn.Execute(sql)
+                            if rs.EOF = false then
+                                subjectID = rs(0)
+                                rs.Close
+	    		            end if
+			            
+	    		            lookupSubDict.Add subjectKey, subjectID
+                        end if
+                    
+                        sql = "INSERT INTO RecordsToSubjects (recordID, subjectID) VALUES (" & id & ", " & subjectID & ")"
+                        conn.Execute sql
+                    next
+                end if
+                Set subjectKeyList = nothing
+            
+                Dim typeKeyList, typeKey, typeID
+                if typeList.length > 0 then
+                    typeKeyList = uniqTypeDict.Keys
+                    for each typeKey in typeKeyList
+                        if lookupTypeDict.Exists(typeKey) then
+                            typeID = lookupTypeDict.Item(typeKey)
+                        else
+                            sql = "INSERT INTO Types (typeText, typeNoPunct) VALUES ('" & uniqTypeDict.Item(typeKey) & "','" & noPunctTypeDict.Item(typeKey) & "')"
+                            conn.Execute sql
+                        
+                            sql = "SELECT @@IDENTITY"
+			                Set rs = conn.Execute(sql)
+                            if rs.EOF = false then
+                                typeID = rs(0)
+                                rs.Close
+			                end if
+			            
+			                lookupTypeDict.Add typeKey, typeID
+                        end if
+                    
+                        sql = "INSERT INTO RecordsToTypes (recordID, typeID) VALUES (" & id & ", " & typeID & ")"
+                        conn.Execute sql
+                    next
+                end if
+                Set typeKeyList = nothing
+			
+	    		Set titleList = nothing
+                Set creatorList = nothing
+                Set subjectList = nothing
+                Set typeList = nothing
+			
+    			'facet code, added by MT
+    			'parse for facetTerms
+    			Dim uniqFacetDict, uniqFacetKey
+    			Dim facetList, facetElem, facetType, facetTerm, facetID
+    			Set uniqFacetDict = WScript.CreateObject("Scripting.Dictionary")
+    			Set facetList = recXML.selectNodes("oai:record/oai:metadata/ui:dc/dc:*[@facetTerm]")
+                for each facetElem in facetList
+                    facetType = facetElem.getAttribute("facetType")
+                    facetTerm = facetElem.getAttribute("facetTerm")
+                    if StrComp(LCase(facetType), "date") <> 0 then
+                        AddFacet lookupFacetDict, facetTerm, uniqFacetDict
+                    else
+                        GetUniqNormDateFacets lookupFacetDict, facetTerm, uniqFacetDict
+                    end if
+                next
+			
+		    	'inserting new facet values
+		    	for each uniqFacetKey in uniqFacetDict
+		            sql = "INSERT INTO RecordsToFacets(facetID, recordID) VALUES ("
+		            sql = sql & uniqFacetDict.Item(uniqFacetKey) & ", " & id & ")"
+		            conn.Execute(sql)
+    			next
+			
+    			'WScript.echo ""
+				
+                Set searchXML = Nothing
+                Set longXHTML = Nothing
+                Set shortXHTML = Nothing
+            End If 'isBadCid = False
+    
+        Else
+             id = rs.Fields.Item("recordID")
+             rs.Close
+             'update the last_modified and the subject_id_str
+             sql = "UPDATE Records "
+             sql = sql & "SET datestamp='" & datestamp & "', status='" & status & "', filePath='" & filePATH & "', harvestDate='" & harvestDate & "' "
+             sql = sql & "WHERE recordID=" & id
+             'myecho sql
+             conn.Execute sql
+        End If
+        
+        Set rs = Nothing
+		
+        UpdateRecords = id
+End Function
+
+Function GetUniqNormDateFacets(ByVal lookupFacetDict, ByVal inRange, uniqFacetDict)
+    Dim strStartDate, strEndDate, iStartDate, iEndDate
+    Dim iTempStartDate, iTempEndDate, strTempEndDate
+    Dim strTempRange, strStartCent, strEndCent, iStartCent, iEndCent
+    'Dim facetID
+    Dim yearDiff
+    
+    'isolates start and end years
+    strStartDate = Left(inRange, 4)
+	strEndDate = Right(inRange, 4)
+	
+	'rounds range to decade(s)
+	strStartDate = Left(strStartDate, 3) & "0"
+	strEndDate = Left(strEndDate, 3) & "9"
+	
+	'gets integer representation
+	iStartDate = Cint(strStartDate)
+	iEndDate = Cint(strEndDate)
+	
+	'check if start > end, invalid date range
+	if iStartDate > iEndDate then
+	    exit function
+	end if
+	
+	strTempRange = iStartDate & "-" & iEndDate
+	if lookupFacetDict.Exists(strTempRange) and not uniqFacetDict.Exists(strTempRange) then
+	    uniqFacetDict.Add strTempRange, lookupFacetDict.Item(strTempRange)
+	    exit function
+	end if
+	
+	yearDiff = iEndDate - iStartDate
+	
+	'check if any part of the range is < 1800 or >= 2000
+    if iStartDate < 1800 then
+        AddFacet lookupFacetDict, "Pre-1800", uniqFacetDict
+        strStartDate = "1800"
+        iStartDate = 1800
+        if iEndDate < 1800 then     'true when entire date range is < 1800
+            exit function
+        end if
+    end if
+    if iEndDate >= 2000 then
+        AddFacet lookupFacetDict, "2000-Present", uniqFacetDict
+        strEndDate = "1999"
+        iEndDate = 1999
+        if iStartDate >= 2000 then  'true when entire date range is >= 2000
+            exit function
+        end if
+    end if
+    
+    if yearDiff < 30 then
+        iTempStartDate = iStartDate
+        iTempEndDate = iStartDate + 9
+        while iTempEndDate <= iEndDate
+            strTempRange = iTempStartDate & "-" & iTempEndDate
+            AddFacet lookupFacetDict, strTempRange, uniqFacetDict
+            iTempStartDate = iTempEndDate + 1
+            iTempEndDate = iTempEndDate + 10
+        wend
+        exit function
+    else
+        strStartCent = Left(strStartDate, 2)
+        strEndCent = Left(strEndDate, 2)
+        iStartCent = Cint(strStartCent)
+	    iEndCent = Cint(strEndCent)
+	    
+	    while iStartCent <= iEndCent
+	        if iStartCent = iEndCent then
+	            GetCenturyFacet lookupFacetDict, strStartDate, strEndDate, iStartCent, uniqFacetDict
+	        else
+	            strTempEndDate = iStartCent & "99"
+	            GetCenturyFacet lookupFacetDict, strStartDate, strTempEndDate , iStartCent, uniqFacetDict
+	        end if
+	        iStartCent = iStartCent + 1
+	        strStartDate = iStartCent & "00"
+	    wend
+    end if
+End Function
+
+Function AddFacet(ByVal lookupFacetDict, ByVal strFacet, uniqFacetDict)
+    if lookupFacetDict.Exists(strFacet) and not uniqFacetDict.Exists(strFacet) then
+        uniqFacetDict.Add strFacet, lookupFacetDict.Item(strFacet)
+        'WScript.echo "facetTerm='" & strFacet & "'"
+    end if
+End Function
+
+Function GetCenturyFacet(ByVal lookupFacetDict, ByVal strStartDate, ByVal strEndDate, ByVal iStartCent, uniqFacetDict)
+    'start and end dates could be early(XX00-XX49?), late(XX50-99), full century(XX00-XX99).
+    Dim iStartDec, iEndDec
+    iStartDec = Cint(Right(strStartDate, 2))
+    iEndDec = Cint(Right(strEndDate, 2))
+    if iEndDec <= 49 then            'early century
+        if iStartCent = 18 then
+            AddFacet lookupFacetDict, "Early 19th century", uniqFacetDict
+        else
+            AddFacet lookupFacetDict, "Early 20th century", uniqFacetDict
+        end if
+    elseif iStartDec >= 50 then    'late century
+        if iStartCent = 18 then
+            AddFacet lookupFacetDict, "Late 19th century", uniqFacetDict
+        else
+            AddFacet lookupFacetDict, "Late 20th century", uniqFacetDict
+        end if
+    else                            'full century
+        if iStartCent = 18 then
+            AddFacet lookupFacetDict, "19th century", uniqFacetDict
+        else
+            AddFacet lookupFacetDict, "20th century", uniqFacetDict
+        end if
+    end if
+End Function
+
+Function DecodeSpecChar(strText)
+    strText = Replace(strText, "&amp;", "&")
+    strText = Replace(strText, "&apos;", "'")
+    strText = Replace(strText, "&lt;", "<")
+    strText = Replace(strText, "&gt;", ">")
+    DecodeSpecChar = strText
+End Function
+
+Function EncodeSpecChar(strText)
+    strText = Replace(strText, "&", "&amp;")
+    strText = Replace(strText, "<", "&lt;")
+    strText = Replace(strText, ">", "&gt;")
+    EncodeSpecChar = strText
+End Function
+
+Function DecEncSpecChar(strText)
+    DecEncSpecChar = EncodeSpecChar(DecodeSpecChar(strText))
+End Function
+
+Function RemovePunctuations(strText)
+    'WScript.echo "Orig str: " & strText
+    Dim regExpress, newStrText
+    Set regExpress = New Regexp
+    regExpress.Pattern = "[^A-Z^a-z^0-9^ ]"
+    regExpress.Global = True
+    newStrText = regExpress.Replace(strText, "")
+    newStrText = Replace(newStrText, "  ", " ")
+    'WScript.echo "New str: " & newStrText
+    RemovePunctuations = newStrText
+End Function
+
+Function ValidSubject(subText)
+    if Left(subText, 3) = "lc-" then
+        ValidSubject = false
+    else
+        ValidSubject = true
+    end if
+End Function
+
+Function GetElementValue(recXML, xpath)
+        Dim nl
+        
+        Set nl = recXML.selectSingleNode(xpath)
+        
+        If Not nl Is Nothing Then
+                GetElementValue = nl.Text
+        Else
+                GetElementValue = ""
+        End If
+End Function
+
+Function ProcessRepository(recXML, baseURL)
+        Dim id, sql
+
+        id = UpdateRepositoriesTable(baseURL)
+        'WScript.stderr.writeline vbCrLf & "repoID = " & id
+        MyEcho "   <Repository id='" & id & "' />"
+
+        If allNewRecs = True And isEmptyDB = False Then
+                sql = "DELETE FROM Records WHERE repoID=" & id
+                MyEcho " <DeletingAllOldRecords start='" & Now & "'>"
+                conn.Execute sql
+                MyEcho "   <Done finished='" & Now & "'/>"
+                MyEcho " </DeletingAllOldRecords>"
+        End If
+
+        ProcessRepository = id
+End Function
+
+Function UpdateRepositoriesTable(baseURL)
+        Dim rs, id, sql, net, argstr, args, arg
+        
+        Set args = WScript.Arguments
+        For Each arg In args
+                argstr = argstr & " " & arg
+        Next
+        Set args = Nothing
+        
+        Set net = WScript.CreateObject("WScript.Network")
+        
+        If ignoreDIR = True Then
+            sql = "SELECT repoID FROM Repositories WHERE baseURL='" & baseURL & "'"
+        Else
+            sql = "SELECT repoID FROM Repositories WHERE baseURL='" & baseURL & "' AND baseDIR='" & baseDIR & "'"
+        End If
+        Set rs = conn.Execute(sql)
+        'dbg
+        'MyEcho sql
+
+        If rs.EOF = True Then
+                rs.Close
+                sql = "INSERT INTO Repositories (repositoryName,baseURL,baseDIR,lastIndexed,codeName) VALUES ("
+                sql = sql & "'" & repoName & "','" & baseURL & "','" & baseDIR & "','" & Now & "','" & GetCodeName & "')"
+                conn.Execute sql
+                'dbg
+                'MyEcho sql
+                
+                sql = "SELECT @@IDENTITY"
+                'dbg
+                'MyEcho sql
+                Set rs = conn.Execute(sql)
+                If rs.EOF = False Then
+                        id = rs(0)
+                        'dbg
+                        'MyEcho "  <INFO>New Repositories.repoID is " & id & "</INFO>"
+                        rs.Close
+                Else
+                        id = UpdateRepositoriesTable(baseURL)
+                End If
+                
+                'this is a new repository, so all the records must be New
+                allNewRecs = True
+
+        Else
+                id = rs.Fields.Item("repoID")
+                rs.Close
+
+                If noMinorUpdates = False Then 'update the last_modified and the subject_id_str
+                    sql = "UPDATE Repositories "
+                    sql = sql & "SET lastIndexed='" & Now & "'"
+                    If Len(repoName) > 0 Then sql = sql & ", repositoryName='" & repoName & "' "
+                    sql = sql & "WHERE repoID=" & id
+                    conn.Execute sql
+                End If
+        End If
+
+        Set rs = Nothing
+        Set net = Nothing
+
+        UpdateRepositoriesTable = id
+End Function
+
+Sub ParseInXML()
+                Dim nodes, node, minDTSTemp, url
+
+                If Len(inFile) = 0 Then Exit Sub
+
+                Set nodes = inXML.getElementsByTagName("baseURL")
+                If nodes.Length = 1 Then
+                        url = nodes.Item(0).Text
+                        If Len(args_baseURL) > 0 And args_baseURL <> url Then
+                WScript.Echo "ERROR: Command line baseURL does not match Config file baseURL"
+                WScript.Quit ERR_MISMATCHED_BASEURLS
+                        Else
+                                baseURL = url
+                        End If
+                End If
+
+                If baseDirFromIn = True Then
+                Set nodes = inXML.getElementsByTagName("destDir")
+                If nodes.Length = 1 Then
+                        baseDIR = nodes.Item(0).Text
+                End If
+                End If
+
+                Set nodes = inXML.getElementsByTagName("repositoryName")
+                If nodes.Length = 1 Then
+                        repoName = nodes.Item(0).Text
+                End If
+
+                Set nodes = inXML.getElementsByTagName("request")
+                If nodes.Length = 1 Then
+                        setSpec = nodes.Item(0).getAttribute("set")
+                End If
+
+                'find the minimum minDateStamp out of all datestamps
+                Set nodes = inXML.getElementsByTagName("minDatestamp")
+                If nodes.Length > 0 Then
+                                minDTS = Now
+                        For Each node In nodes
+                        minDTSTemp = util.ISO8601ToDate(node.Text)
+                        If minDTSTemp < minDTS Then minDTS = minDTSTemp
+                Next
+                minDTS = DateAdd("d", -1, minDTS) 'to correct for date conversion problems
+                End If
+
+                'find the total of all Totals
+                total = 0
+                Set nodes = inXML.getElementsByTagName("Total")
+                If nodes.Length > 0 Then
+                        For Each node In nodes
+                                total = total + CLng(node.Text)
+                        Next
+                Else
+                        total = 0
+                End If
+End Sub
+
+Sub MyEcho(s)
+                Dim ts, errnum, errdes
+
+                If Not myecho_ts Is Nothing Then
+                        On Error Resume Next
+                        myecho_ts.writeline s
+                        errnum = Err.Number: errdes = Err.Description
+                        If errnum <> 0 Then WScript.stderr.writeline "Error: " & errnum & " - " & errdes
+                        On Error GoTo 0
+                Else
+                        WScript.Echo s
+                End If
+End Sub
+
+Function GetCodeName()
+        '''''''''''''''''''''''''''''''''''''
+        'extract the last part baseDIR
+        ''''''''''''''''''''''''''''''''''''''
+        GetCodeName = fs.GetBaseName(baseDIR)
+End Function
+
+Sub ParseArguments()
+      'get the baseDIR directory
+      If WScript.Arguments.UnNamed.Length = 0 Then
+        baseDIR = fs.GetAbsolutePathName(shl.currentdirectory)
+        args_baseURL = ""
+      ElseIf WScript.Arguments.UnNamed.Length = 1 Then
+        baseDIR = fs.GetAbsolutePathName(WScript.Arguments.UnNamed.Item(0))
+        args_baseURL = ""
+      ElseIf WScript.Arguments.UnNamed.Length = 2 Then
+        baseDIR = fs.GetAbsolutePathName(WScript.Arguments.UnNamed.Item(0))
+        args_baseURL = WScript.Arguments.UnNamed.Item(1)
+      Else
+        WScript.Arguments.ShowUsage()
+                WScript.Echo "ERROR: Too many unnamed arguments"
+        WScript.Quit ERR_ARGS
+      End If
+
+      'get the output file
+      If WScript.Arguments.Named.Exists("out") Then
+        outFile = fs.BuildPath(baseDIR, WScript.Arguments.Named.Item("out"))
+      Else
+        outFile = ""
+      End If
+
+      'get the database server
+      If WScript.Arguments.Named.Exists("srv") Then
+        srv = WScript.Arguments.Named.Item("srv")
+      Else
+        srv = ""
+        WScript.Arguments.ShowUsage()
+                WScript.Echo "ERROR: /srv:value is a required parameter"
+        WScript.Quit ERR_NO_SRV
+      End If
+
+      'get the database name
+      If WScript.Arguments.Named.Exists("db") Then
+        db = WScript.Arguments.Named.Item("db")
+      Else
+        db = ""
+        WScript.Arguments.ShowUsage()
+                WScript.Echo "ERROR: /db:value is a required parameter"
+        WScript.Quit ERR_NO_DB
+      End If
+
+      'get the start file
+      If WScript.Arguments.Named.Exists("st") Then
+        startFile = WScript.Arguments.Named.Item("st")
+      Else
+        startFile = ""
+      End If
+
+      'get the input file xml
+      If WScript.Arguments.Named.Exists("in") Then
+        inFile = WScript.Arguments.Named.Item("in")
+        If fs.FileExists(inFile) And WScript.Arguments.UnNamed.Length = 0 Then
+                baseDirFromIn = True
+        Else
+                inFile = fs.BuildPath(baseDIR, inFile)
+                baseDirFromIn = False
+        End If
+      ElseIf Len(args_baseURL) = 0 Then
+        If WScript.Arguments.Named.Exists("xin") Then   ' "obtain baseURL from the _x_ml _in_put files"
+                baseURLFromArgs = False
+                inFile = ""
+        Else
+                inFile = fs.BuildPath(baseDIR, "Config.xml")
+        End If
+        baseDirFromIn = False
+      Else
+        inFile = ""
+        baseDirFromIn = False
+      End If
+
+      Set inXML = WScript.CreateObject("MSXML2.DOMDocument.4.0")
+      inXML.async = False
+
+      If Len(inFile) > 0 Then
+        inXML.Load inFile
+        If inXML.parseError.errorCode <> 0 Then
+                WScript.Echo "ERROR: '" & inFile & "' not a valid XML file: " & inXML.parseError.reason
+                WScript.Quit ERR_INXML_PARSE_ERROR
+        End If
+      End If
+
+      ' determine whether this is an "empty" DB we are loading into (with exception of Facets table)
+      If WScript.Arguments.Named.Exists("emp") Then isEmptyDB = True   ' "DB is _emp_ty"
+
+      ' determine whether to ignore baseDir column when checking for existing rows in Repositories for a given baseURL
+      If WScript.Arguments.Named.Exists("ign") Then ignoreDIR = True   ' "_ign_ore baseDIR column"
+
+      ' determine whether to perform minor updates to Repositories table (lastIndexed & repositoryName columns...)
+      If WScript.Arguments.Named.Exists("not") Then noMinorUpdates = True   ' "do _not_ perform minor updates"
+End Sub
+    </script>
+</job>
+

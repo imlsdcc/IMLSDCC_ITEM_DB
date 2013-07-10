@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<types>
+    <!--KF: see also types.xml... may want to reconcile at some point! 
+        (not sure types.xml is being used in current processing...) 
+        The following facetTerms are based on spreadsheet created by Sarah Shreeves 
+        after her analysis of metadata in the transportation database, based on LTGM i think
+        Her spreadsheet also has DCMI types, which i think are already being incorporated during
+        standard.expand phase of processing, though i'm not sure how well...-->
+    
+    <!-- NOTE: The following type elements have an important order: more specific terms should come first, 
+        parent terms after; this is to add the most specific facet term possible to the record, because the stylesheet
+        proceeds in order through this list seeking a match term and stops when a match is found -->
+    
+    <!--
+        types for which we will not provide facet terms:
+    <type>Image</type>
+    <type>stillimage</type>
+    <type>Graphic</type> 
+    <type>views</type>
+    <type>reproductions</type>
+    -->
+    <type facetTerm="photographic prints">photographic print</type>
+    <type facetTerm="glass negative">glass negative</type>
+    <type facetTerm="glass negative">glass plate negative</type>
+    <type facetTerm="film negative">acetate negative</type>
+    <type facetTerm="film negative">nitrate negative </type>
+    <type facetTerm="film negative">safety film negative </type>
+    <type facetTerm="film negative">polyester negative </type>
+    <type facetTerm="negative">negative</type>
+    <type facetTerm="lantern slide">lantern slide</type>
+    <type facetTerm="slides">slide</type>
+	<type facetTerm="photograph">photograph</type>
+
+    <type facetTerm="abstract paintings">abstract paintings</type>
+    <type facetTerm="paintings">painting</type>
+	
+	<type facetTerm="periodical">periodical</type>
+    <type facetTerm="bibliography">bibliography</type>
+    <type facetTerm="book">dictionary</type>
+	<type facetTerm="text">text</type>
+
+    <type facetTerm="portrait">portrait</type>
+    <type facetTerm="seascapes">seascape</type>
+    <type facetTerm="floor plans">floor plan</type>    
+    <type facetTerm="plan">duct layout</type>
+    <type facetTerm="stereograph">stereograph</type>
+    <type facetTerm="stereograph">stereo card</type>
+
+	<type facetTerm="postcard">postcard</type>
+    <type facetTerm="artifact">artifact</type>
+    
+    <!--KF could add (based on MODS typeOfResource values):
+        -see the MODS->DC stylesheet TypeOfResource...
+    <type facetTerm="maps">cartographic material</type> -->
+    
+</types>
